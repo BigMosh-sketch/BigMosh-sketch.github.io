@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Advice Card</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #1c2033;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    .scene {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 2rem;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: #2a2f45;
+      border-radius: 14px;
+      padding: 2.5rem 2.5rem 4rem;
+      max-width: 420px;
+      width: 100%;
+      position: relative;
+      text-align: center;
+      border: 0.5px solid rgba(255, 255, 255, 0.08);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .card.fade {
+      opacity: 0;
+      transform: scale(0.97);
+    }
+
+    .card-label {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #4adeaa;
+      font-weight: 500;
+      margin-bottom: 1.25rem;
+    }
+
+    .card-quote {
+      font-size: 22px;
+      font-weight: 700;
+      color: #f0f2f8;
+      line-height: 1.45;
+      margin-bottom: 1.5rem;
+    }
+
+    .card-divider {
+      width: 80px;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.15);
+      margin: 0 auto 1rem;
+    }
+
+    .card-pause {
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.4);
+      letter-spacing: 4px;
+    }
+
+    /* ── Dice Button ── */
+    .roll-btn {
+      position: absolute;
+      bottom: -28px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #4adeaa;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 0 6px rgba(74, 222, 170, 0.2);
+      transition: transform 0.15s ease, background 0.15s ease;
+    }
+
+    .roll-btn:hover {
+      transform: translateX(-50%) scale(1.08);
+      background: #34d399;
+    }
+
+    .roll-btn:active {
+      transform: translateX(-50%) scale(0.95);
+    }
+
+    .roll-btn i {
+      font-size: 22px;
+      color: #1c2033;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="scene">
+    <div class="card" id="card">
+      <div class="card-label" id="label">Advice #117</div>
+      <div class="card-quote" id="quote">
+        "It is easy to sit up and take notice, what's difficult is getting up and taking action."
+      </div>
+      <div class="card-divider"></div>
+      <div class="card-pause">‖</div>
+      <button class="roll-btn" id="rollBtn" aria-label="Roll for new advice">
+        <i class="ti ti-dice"></i>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const quotes = [
+      "It is easy to sit up and take notice, what's difficult is getting up and taking action.",
+      "The secret of getting ahead is getting started.",
+      "Don't wait. The time will never be just right.",
+      "Small daily improvements over time lead to stunning results.",
+      "You don't have to be great to start, but you have to start to be great.",
+      "Action is the foundational key to all success.",
+      "Do what you can, with what you have, where you are.",
+      "A year from now you may wish you had started today.",
+      "The way to get started is to quit talking and begin doing.",
+      "Inaction breeds doubt and fear. Action breeds confidence and courage.",
+      "Success is the sum of small efforts repeated day in and day out.",
+      "Opportunities don't happen. You create them.",
+      "Believe you can and you're halfway there.",
+      "It always seems impossible until it's done.",
+      "The harder you work for something, the greater you'll feel when you achieve it.",
+      "Push yourself, because no one else is going to do it for you.",
+      "Great things never come from comfort zones.",
+      "Dream it. Wish it. Do it.",
+      "Success doesn't just find you. You have to go out and get it.",
+      "The key to success is to focus on goals, not obstacles."
+    ];
+
+    let currentIndex = 16; // starts at #117 (index 16 → number 117)
+
+    const card     = document.getElementById('card');
+    const label    = document.getElementById('label');
+    const quote    = document.getElementById('quote');
+    const rollBtn  = document.getElementById('rollBtn');
+
+    rollBtn.addEventListener('click', () => {
+      card.classList.add('fade');
+
+      setTimeout(() => {
+        let next;
+        do {
+          next = Math.floor(Math.random() * quotes.length);
+        } while (next === currentIndex);
+
+        currentIndex = next;
+        label.textContent = `Advice #${100 + next + 1}`;
+        quote.textContent = `"${quotes[next]}"`;
+
+        card.classList.remove('fade');
+      }, 250);
+    });
+  </script>
+
+</body>
+</html>
